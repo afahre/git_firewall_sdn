@@ -1,6 +1,6 @@
 import subprocess
 
-for ping in range(1,4):
+for ping in range(1,17):
     address = "10.0.0." + str(ping)
     #res = subprocess.call(['time','hping3'])
     res = subprocess.call(['ping', '-c', '3', address])
