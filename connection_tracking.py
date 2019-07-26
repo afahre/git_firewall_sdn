@@ -1,6 +1,8 @@
 #! usr/bin/env python
 import logging
 from threading import Timer
+import datetime
+import packet_time
 
 class TrackConnection():
     """
@@ -8,6 +10,9 @@ class TrackConnection():
         Add seen flows to dictionary 
         and track them from incoming packets.
     """
+
+    file_name = datetime.datetime.now()
+    save = "/home/afahre/output_table/" + str(file_name) + ".txt"
     
     def __init__(self):
         logging.info("Stateful Firewall --> Connection Tracking can be possible...")
@@ -51,15 +56,32 @@ class TrackConnection():
         print("** Stored Information **")
         print(mydict)
         print("\n")
-        print("MyDictionary pada key --> ", key, mydict[key])
+        # print("MyDictionary pada key --> ", key, mydict[key])
 
+        # count = 0 
+        # if count == 0:
+        #     file_name = datetime.datetime.now()
+        #     packet_time.save = "/home/afahre/" + str(file_name) + ".txt"  
+        #     count = 1  
 
-        # def reset():
-        #     mydict.clear()
+        def reset():
+            mydict.clear()
+            file_name = datetime.datetime.now()
+            self.save = "/home/afahre/output_table/" + str(file_name) + ".txt"
+
+        # def reset_save():
+        #     file_name = datetime.datetime.now()
+        #     save = "/home/afahre/" + str(file_name) + ".txt"
         
-        # timer = Timer(86400.0, reset)
-        # timer.start()
-        with open("/home/afahre/output_table.txt", "w") as table:  
+        timer = Timer(1800.0, reset)
+        timer.start()
+
+        # timer_save = Timer(10.0, reset_save)
+        # timer_save.start()
+
+        #"/home/afahre
+
+        with open(self.save, "w") as table:  
             for listitem in mydict:
                 table.write(listitem) #,mydict[listitem])
                 table.write(":")
